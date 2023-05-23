@@ -8,7 +8,14 @@
 			<div class="mb-1 text-body-secondary">{{$post->created_at}}</div>
 			<p class="card-text mb-auto">{{$post->body}}</p>
 			<div>
-				<a href="{{route('posts.edit', ['post' => $post->post_id])}}">Редактировать</a>
+				<a class="btn btn-info" href="{{route('posts.edit', ['post' => $post->post_id])}}">Редактировать</a>
+				<form action="{{ route('posts.destroy', ['post' => $post->post_id]) }}"
+					  method="post" onsubmit="return confirm('Удалить этот пост?')"
+					  class="d-inline">
+					@csrf
+					@method('DELETE')
+					<input type="submit" class="btn btn-danger" value="Удалить">
+				</form>
 			</div>
 		</div>
 		<div class="col-auto d-none d-lg-block">

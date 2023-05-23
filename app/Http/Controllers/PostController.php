@@ -3,10 +3,8 @@
 namespace App\Http\Controllers;
 
 use App\Models\Post;
-use App\Models\User;
 use Illuminate\Contracts\Database\Eloquent\Builder;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Storage;
 
 class PostController extends Controller
@@ -65,7 +63,7 @@ class PostController extends Controller
 	public function show($id)
 	{
 		$post = Post::join('users', 'users.id', '=', 'posts.user_id')
-			->find($id)
+			->findOrFail($id)
 			->first();
 		return view('show', compact('post'));
 	}
@@ -87,7 +85,7 @@ class PostController extends Controller
 	 *
 	 * @param \Illuminate\Http\Request $request
 	 * @param int $id
-	 * @return \Illuminate\Http\Response
+	 * @return \Illuminate\Http\RedirectResponse
 	 */
 	public function update(Request $request, $id)
 	{
@@ -110,11 +108,15 @@ class PostController extends Controller
 	 * Remove the specified resource from storage.
 	 *
 	 * @param int $id
-	 * @return \Illuminate\Http\Response
+	 * @return \Illuminate\Http\RedirectResponse
 	 */
 	public function destroy($id)
 	{
-		//
+		$post = Post::findOrFail($id);
+		$post->delete();
+		return redirect()
+			->route('posts.index', ['post' => $post->post_id])
+			->with('success', 'Пост успешно удален');
 	}
 
 	public function search(Request $request) {
