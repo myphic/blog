@@ -1,0 +1,55 @@
+version: '3'
+
+services:
+  nginx:
+    image: nginx:latest
+    volumes:
+        -   ./:/var/www
+        - ./_docker/nginx/conf.d:/etc/nginx/conf.d
+    ports:
+      - "8080:80"
+    depends_on:
+        - app
+    container_name: project_nginx
+
+  db:
+      image: mysql:8.0
+      volumes:
+          - dbdata:/var/lib/mysql
+      environment:
+          MYSQL_DATABASE: ${DB_DATABASE}
+          MYSQL_ROOT_PASSWORD: ${DB_PASSWORD}
+          MYSQL_PASSWORD: ${DB_PASSWORD}
+          MYSQL_TCP_PORT: ${DB_PORT}
+      ports:
+          - 3307:3306
+  pma:
+      image: phpmyadmin:5.1
+      environment:
+          - PMA_ARBITRARY=1
+          - PMA_HOST=db
+          - PMA_USER=${DB_USERNAME}
+          - PMA_PASSWORD=${DB_PASSWORD}
+          - PMA_PORT=${DB_PORT}
+      depends_on:
+          - db
+      ports:
+          - 8888:80
+  node:
+      build:
+          context: .
+          dockerfile: _docker/app/Dockerfile
+      volumes:
+          - ./:/var/www
+      tty: true
+  app:
+    build:
+        context: .
+        dockerfile: _docker/app/Dockerfile
+    volumes:
+        -   ./:/var/www
+    user: 1000:1000
+    container_name: project_app
+
+volumes:
+    dbdata:

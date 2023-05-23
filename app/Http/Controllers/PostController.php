@@ -1,0 +1,137 @@
+<?php
+
+namespace App\Http\Controllers;
+
+use App\Models\Post;
+use App\Models\User;
+use Illuminate\Contracts\Database\Eloquent\Builder;
+use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Log;
+use Illuminate\Support\Facades\Storage;
+
+class PostController extends Controller
+{
+	/**
+	 * Display a listing of the resource.
+	 *
+	 * @return \Illuminate\Contracts\Foundation\Application|\Illuminate\Contracts\View\Factory|\Illuminate\Contracts\View\View
+	 */
+	public function index()
+	{
+		$posts = Post::all();
+
+		return view('main', compact('posts'));
+	}
+
+	/**
+	 * Show the form for creating a new resource.
+	 *
+	 * @return \Illuminate\Http\Response
+	 */
+	public function create()
+	{
+		return view('create');
+	}
+
+	/**
+	 * Store a newly created resource in storage.
+	 *
+	 * @param \Illuminate\Http\Request $request
+	 * @return \Illuminate\Http\Response
+	 */
+	public function store(Request $request)
+	{
+		$post = new Post();
+		$post->user_id = rand(1, 15);
+		$post->title = $request->title;
+		$post->body = $request->body;
+		$image = $request->file('image');
+		$originalFileName = $request->file('image')->getClientOriginalName();
+		if ($image) {
+			Storage::putFileAs(public_path('images'), $image, $originalFileName);
+			$post->image = $originalFileName;
+		}
+
+		$post->save();
+		return redirect()->route('posts.index')->with('success', 'Пост успешно создан.');
+	}
+
+	/**
+	 * Display the specified resource.
+	 *
+	 * @param int $id
+	 * @return \Illuminate\Http\Response
+	 */
+	public function show($id)
+	{
+		$post = Post::join('users', 'users.id', '=', 'posts.user_id')
+			->find($id)
+			->first();
+		return view('show', compact('post'));
+	}
+
+	/**
+	 * Show the form for editing the specified resource.
+	 *
+	 * @param int $id
+	 * @return \Illuminate\Http\Response
+	 */
+	public function edit($id)
+	{
+		$post = Post::find($id);
+		return view('edit', compact('post'));
+	}
+
+	/**
+	 * Update the specified resource in storage.
+	 *
+	 * @param \Illuminate\Http\Request $request
+	 * @param int $id
+	 * @return \Illuminate\Http\Response
+	 */
+	public function update(Request $request, $id)
+	{
+		$post = Post::find($id);
+		$post->title = $request->title;
+		$post->body = $request->body;
+		$image = $request->file('image');
+		if ($image) {
+			$originalFileName = $request->file('image')->getClientOriginalName();
+			Storage::putFileAs(public_path('images'), $image, $originalFileName);
+			$post->image = $originalFileName;
+		}
+		$post->save();
+		return redirect()
+			->route('posts.show', ['post' => $post->post_id])
+			->with('success', 'Пост успешно отредактирован');
+	}
+
+	/**
+	 * Remove the specified resource from storage.
+	 *
+	 * @param int $id
+	 * @return \Illuminate\Http\Response
+	 */
+	public function destroy($id)
+	{
+		//
+	}
+
+	public function search(Request $request) {
+		$s = $request->query('search');
+		$request->validate([
+			'search' => 'required',
+		]);
+
+		$posts = Post::whereHas('user', function (Builder $query) use ($s)
+			{
+				$query->where('name', 'LIKE', "%{$s}%");
+			})
+			->orWhere('title', 'LIKE', "%{$s}%")
+			->orWhere('body', 'LIKE', "%{$s}%")
+			->paginate(4);
+
+		return view('search', compact('posts'));
+	}
+
+}
