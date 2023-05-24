@@ -16,7 +16,6 @@ yarn-error.log
 /.fleet
 /.idea
 /.vscode
-/WSL$UBUNTU-20.04homelaravelprojectsnginxblogstoragelogs/
 /images
 /public/images
 /.editorconfig

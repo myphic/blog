@@ -36,6 +36,7 @@
 				</div>
 			</div>
 		@endforeach
+		{{$posts->links()}}
 	</div>
 
 	<div class="row g-5">

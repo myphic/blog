@@ -19,9 +19,8 @@
 			</div>
 		</div>
 		<div class="col-auto d-none d-lg-block">
-			@dump($post->image)
-			@if (File::exists('images/' . $post->image) && $post->image)
-				<img src="{{asset('images/' . $post->image)}}"/>
+			@if (File::exists('storage/images/' . $post->image) && $post->image)
+				<img src="{{asset('storage/images/' . $post->image)}}"/>
 			@else
 				<svg class="bd-placeholder-img" width="200" height="250"
 					 xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Placeholder: Эскиз"
