@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Facade\ResizeImage;
 use App\Models\Post;
 use App\Services\ImageService;
 use Illuminate\Contracts\Database\Eloquent\Builder;
@@ -38,20 +39,19 @@ class PostController extends Controller
 	 * @param \Illuminate\Http\Request $request
 	 * @return \Illuminate\Http\RedirectResponse
 	 */
-	public function store(Request $request, ImageService $imageService)
+	public function store(Request $request)
 	{
 		$post = new Post();
 		$post->user_id = rand(1, 15);
 		$post->title = $request->title;
 		$post->body = $request->body;
-
 		$image = $request->file('image');
 		if($image)
 		{
 			Storage::putFileAs('public/images', $image, $image->hashName());
 			$post->image = $image->hashName();
 		}
-		$post->thumb = $imageService->crop($image);
+		$post->thumb = ResizeImage::crop($image);
 		$post->save();
 		return redirect()->route('posts.index')->with('success', 'Пост успешно создан.');
 	}

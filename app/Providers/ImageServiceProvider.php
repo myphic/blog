@@ -14,9 +14,7 @@ class ImageServiceProvider extends ServiceProvider
 	 */
 	public function register()
 	{
-		$this->app->singleton(ImageService::class, function ($app) {
-			return new ImageService();
-		});
+
 	}
 
 	/**
@@ -26,6 +24,6 @@ class ImageServiceProvider extends ServiceProvider
 	 */
 	public function boot()
 	{
-		//
+		$this->app->bind('resizeimage', ImageService::class);
 	}
 }
