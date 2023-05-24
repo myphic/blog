@@ -19,6 +19,7 @@
 			</div>
 		</div>
 		<div class="col-auto d-none d-lg-block">
+			@dump($post->image)
 			@if (File::exists('images/' . $post->image) && $post->image)
 				<img src="{{asset('images/' . $post->image)}}"/>
 			@else

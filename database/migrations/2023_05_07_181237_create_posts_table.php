@@ -18,6 +18,7 @@ return new class extends Migration
             $table->bigInteger('user_id')->unsigned()->nullable();
             $table->string('title', 100);
             $table->string('image', 100)->nullable();
+			$table->string('thumb', 100)->nullable();
             $table->text('body');
             $table->timestamps();
             $table->foreign('user_id')

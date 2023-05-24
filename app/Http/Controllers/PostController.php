@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Post;
+use App\Services\ImageService;
 use Illuminate\Contracts\Database\Eloquent\Builder;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
@@ -35,21 +36,22 @@ class PostController extends Controller
 	 * Store a newly created resource in storage.
 	 *
 	 * @param \Illuminate\Http\Request $request
-	 * @return \Illuminate\Http\Response
+	 * @return \Illuminate\Http\RedirectResponse
 	 */
-	public function store(Request $request)
+	public function store(Request $request, ImageService $imageService)
 	{
 		$post = new Post();
 		$post->user_id = rand(1, 15);
 		$post->title = $request->title;
 		$post->body = $request->body;
-		$image = $request->file('image');
-		$originalFileName = $request->file('image')->getClientOriginalName();
-		if ($image) {
-			Storage::putFileAs(public_path('images'), $image, $originalFileName);
-			$post->image = $originalFileName;
-		}
 
+		$image = $request->file('image');
+		if($image)
+		{
+			Storage::putFileAs('public/images', $image, $image->hashName());
+			$post->image = $image->hashName();
+		}
+		$post->thumb = $imageService->crop($image);
 		$post->save();
 		return redirect()->route('posts.index')->with('success', 'Пост успешно создан.');
 	}
@@ -63,8 +65,7 @@ class PostController extends Controller
 	public function show($id)
 	{
 		$post = Post::join('users', 'users.id', '=', 'posts.user_id')
-			->findOrFail($id)
-			->first();
+			->findOrFail($id);
 		return view('show', compact('post'));
 	}
 

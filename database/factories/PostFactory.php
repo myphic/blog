@@ -22,11 +22,10 @@ class PostFactory extends Factory
         return [
             'user_id' => User::factory(),
             'title' => $this->faker->realText(rand(25, 30)),
-            'image' => $this->faker->image(public_path('images'),400,300, null, false),
+            'image' => $this->faker->image(storage_path('app/public/images'),400,300, null, false),
             'body' => $this->faker->realText(rand(200, 300)),
             'created_at' => $this->faker->dateTimeBetween('-60 days', '-30 days'),
             'updated_at' => $this->faker->dateTimeBetween('-20 days', '-1 days'),
-
         ];
     }
 }
