@@ -10,9 +10,14 @@ class Post extends Model
 	use HasFactory;
 
 	protected $primaryKey = 'post_id';
+	protected $perPage = 10;
 
 	public function user()
 	{
 		return $this->belongsTo(User::class);
+	}
+
+	public function tags() {
+		return $this->belongsToMany(Tag::class)->withTimestamps();
 	}
 }

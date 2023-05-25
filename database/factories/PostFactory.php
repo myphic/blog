@@ -21,6 +21,7 @@ class PostFactory extends Factory
     {
         return [
             'user_id' => User::factory(),
+			'post_id' => 1,
             'title' => $this->faker->realText(rand(25, 30)),
             'image' => $this->faker->image(storage_path('app/public/images'),400,300, null, false),
             'body' => $this->faker->realText(rand(200, 300)),
