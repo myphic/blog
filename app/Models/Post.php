@@ -9,7 +9,6 @@ class Post extends Model
 {
 	use HasFactory;
 
-	protected $primaryKey = 'post_id';
 	protected $perPage = 10;
 
 	public function user()
