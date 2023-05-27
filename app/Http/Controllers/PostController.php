@@ -101,7 +101,7 @@ class PostController extends Controller
 		}
 		$post->save();
 		return redirect()
-			->route('posts.show', ['post' => $post->post_id])
+			->route('posts.show', ['id' => $post->post_id])
 			->with('success', 'Пост успешно отредактирован');
 	}
 
@@ -116,7 +116,7 @@ class PostController extends Controller
 		$post = Post::findOrFail($id);
 		$post->delete();
 		return redirect()
-			->route('posts.index', ['post' => $post->post_id])
+			->route('posts.index', ['id' => $post->post_id])
 			->with('success', 'Пост успешно удален');
 	}
 

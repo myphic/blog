@@ -8,8 +8,8 @@
 			<div class="mb-1 text-body-secondary">{{$post->created_at}}</div>
 			<p class="card-text mb-auto">{{$post->body}}</p>
 			<div>
-				<a class="btn btn-info" href="{{route('posts.edit', ['post' => $post->post_id])}}">Редактировать</a>
-				<form action="{{ route('posts.destroy', ['post' => $post->post_id]) }}"
+				<a class="btn btn-info" href="{{route('posts.edit', ['post' => $post->id])}}">Редактировать</a>
+				<form action="{{ route('posts.destroy', ['post' => $post->id]) }}"
 					  method="post" onsubmit="return confirm('Удалить этот пост?')"
 					  class="d-inline">
 					@csrf

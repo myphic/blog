@@ -1,25 +1,21 @@
-<div class="container">
-	<header class="blog-header lh-1 py-3">
-		<div class="row flex-nowrap justify-content-between align-items-center">
-			<div class="col-4 pt-1">
-				<a class="link-secondary" href="{{route('posts.index')}}">Главная</a>
-			</div>
-			<div class="col-4 text-center">
-				<a class="blog-header-logo text-body-emphasis" href="#">Большой</a>
-			</div>
-			<form action="{{route('search')}}" name="searchForm"  method="GET" class="col-4 d-flex justify-content-end align-items-center">
+<nav class="navbar navbar-expand-lg navbar-light bg-light">
+	<div class="container-fluid">
+		<a class="navbar-brand link-danger" href="#">Главная</a>
+		<button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+			<span class="navbar-toggler-icon"></span>
+		</button>
 
-				<input id="title-search-input" type="text" name="search" value="" class="search-form @error('s') is-invalid @enderror" required placeholder="Поиск" />
-				<input type="submit" class="search-btn" />
-				<a class="btn btn-sm btn-outline-secondary" href="#">Регистрация</a>
+		<div class="collapse navbar-collapse justify-content-between" id="navbarSupportedContent">
+			<ul class="navbar-nav mr-auto">
+				<li class="nav-item active">
+					<a class="nav-link" href="{{route('posts.index')}}">Посты</a>
+				</li>
+			</ul>
+			<form action="{{route('search')}}" name="searchForm" class="form-inline my-2 my-lg-0" method="GET">
+				<input id="title-search-input" type="text" name="search" value="" class="form-control d-inline w-auto mr-sm-2 @error('s') is-invalid @enderror" required placeholder="Поиск" />
+				<input type="submit" class="btn btn-outline-success my-2" value="Найти" />
 			</form>
 		</div>
-	</header>
-
-	<div class="nav-scroller py-1 mb-2">
-		<nav class="nav d-flex justify-content-between">
-			<a class="p-2 link-secondary" href="{{route('posts.create')}}">Создать пост</a>
-		</nav>
 	</div>
-</div>
+</nav>
 

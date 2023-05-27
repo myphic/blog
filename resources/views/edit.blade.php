@@ -2,7 +2,7 @@
 
 @section('content')
 	<h1 class="mt-2 mb-3">Редактирование поста</h1>
-	<form method="post" action="{{ route('posts.update', ['post' => $post->post_id]) }}" enctype="multipart/form-data">
+	<form method="post" action="{{ route('posts.update', ['post' => $post->id]) }}" enctype="multipart/form-data">
 		@method('PATCH')
 		@include('particles.form')
 	</form>

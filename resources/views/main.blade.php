@@ -19,7 +19,7 @@
 						<h3 class="mb-0">{{$post->title}}</h3>
 						<div class="mb-1 text-body-secondary">{{$post->created_at}}</div>
 						<p class="card-text mb-auto">{{Str::limit($post->body, 50, '[...]')}}</p>
-						<a href="{{route('posts.show', ['post' => $post->post_id])}}" class="stretched-link">Продолжить чтение</a>
+						<a href="{{route('posts.show', ['post' => $post->id])}}" class="stretched-link">Продолжить чтение</a>
 					</div>
 					<div class="col-auto d-none d-lg-block">
 						@if (File::exists('storage/thumb/' . $post->image) && $post->image)
