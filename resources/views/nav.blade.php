@@ -10,6 +10,21 @@
 				<li class="nav-item active">
 					<a class="nav-link" href="{{route('posts.index')}}">Посты</a>
 				</li>
+				@guest
+					<li class="nav-item">
+						<a class="nav-link" href="{{ route('auth.login') }}">Войти</a>
+					</li>
+					<li class="nav-item">
+						<a class="nav-link" href="{{ route('auth.register') }}">Регистрация</a>
+					</li>
+				@else
+					<li class="nav-item">
+						<a class="nav-link" href="{{ route('user.index') }}">Личный кабинет</a>
+					</li>
+					<li class="nav-item">
+						<a class="nav-link" href="{{ route('auth.logout') }}">Выйти</a>
+					</li>
+				@endif
 			</ul>
 			<form action="{{route('search')}}" name="searchForm" class="form-inline my-2 my-lg-0" method="GET">
 				<input id="title-search-input" type="text" name="search" value="" class="form-control d-inline w-auto mr-sm-2 @error('s') is-invalid @enderror" required placeholder="Поиск" />
