@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\Auth\ForgotPasswordController;
 use App\Http\Controllers\Auth\LoginController;
 use App\Http\Controllers\PostController;
 use App\Http\Controllers\Auth\RegisterController;
@@ -23,6 +24,12 @@ Route::group([
 
 	Route::get('logout', [LoginController::class, 'logout'])
 		->name('logout');
+
+	Route::get('forgot-password', [ForgotPasswordController::class, 'form'])
+		->name('forgot-form');
+
+	Route::post('forgot-password', [ForgotPasswordController::class, 'mail'])
+		->name('forgot-mail');
 });
 
 Route::group([

@@ -1,7 +1,6 @@
 @extends('layouts.index', ['title' => 'Вход в личный кабинет'])
 
 @section('content')
-	@dump($errors)
 	<h1>Вход в личный кабинет</h1>
 	<form method="post" action="{{ route('auth.auth') }}">
 		@csrf
