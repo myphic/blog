@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\Auth\ForgotPasswordController;
 use App\Http\Controllers\Auth\LoginController;
+use App\Http\Controllers\Auth\ResetPasswordController;
 use App\Http\Controllers\PostController;
 use App\Http\Controllers\Auth\RegisterController;
 use Illuminate\Support\Facades\Route;
@@ -30,6 +31,12 @@ Route::group([
 
 	Route::post('forgot-password', [ForgotPasswordController::class, 'mail'])
 		->name('forgot-mail');
+
+	Route::get('reset-password/token/{token}/email/{email}', [ResetPasswordController::class, 'form']
+	)->name('reset-form');
+
+	Route::post('reset-password', [ResetPasswordController::class, 'reset'])
+		->name('reset-password');
 });
 
 Route::group([
