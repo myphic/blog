@@ -19,5 +19,6 @@
 			<label class="form-check-label" for="check">Запомнить меня</label>
 		</div>
 		<button type="submit" class="btn btn-primary">Войти</button>
+		<a class="btn btn-secondary" href="{{route('auth.forgot-form')}}">Забыли пароль?</a>
 	</form>
 @endsection
