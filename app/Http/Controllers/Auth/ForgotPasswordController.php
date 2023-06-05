@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Auth;
 
 use App\Http\Controllers\Controller;
+use App\Http\Requests\ForgotPasswordRequest;
 use Illuminate\Http\Request;
 use Illuminate\Support\Carbon;
 use Illuminate\Support\Facades\DB;
@@ -25,10 +26,7 @@ class ForgotPasswordController extends Controller
 	/**
 	 * Письмо на почту для восстановления
 	 */
-	public function mail(Request $request) {
-		$request->validate([
-			'email' => 'required|email|exists:users',
-		]);
+	public function mail(ForgotPasswordRequest $request) {
 		$token = Str::random(60);
 		DB::table('password_resets')->insert(
 			['email' => $request->email, 'token' => $token, 'created_at' => Carbon::now()]

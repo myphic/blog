@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Facade\ResizeImage;
+use App\Http\Requests\SearchRequest;
 use App\Models\Post;
 use App\Services\ImageService;
 use Illuminate\Contracts\Database\Eloquent\Builder;
@@ -120,21 +121,8 @@ class PostController extends Controller
 			->with('success', 'Пост успешно удален');
 	}
 
-	public function search(Request $request) {
-		$s = $request->query('search');
-		$request->validate([
-			'search' => 'required',
-		]);
-
-		$posts = Post::whereHas('user', function (Builder $query) use ($s)
-			{
-				$query->where('name', 'LIKE', "%{$s}%");
-			})
-			->orWhere('title', 'LIKE', "%{$s}%")
-			->orWhere('body', 'LIKE', "%{$s}%")
-			->paginate(4);
-
-		return view('search', compact('posts'));
+	public function search(SearchRequest $request) {
+		return view('search', ['posts' => (new Post())->getByQuery($request->search)]);
 	}
 
 }

@@ -8,7 +8,6 @@
 			<label for="email">Email:</label>
 			<input type="email" class="form-control" name="email" placeholder="Адрес почты"
 				   required maxlength="255" value="{{ old('email') ?? '' }}" aria-describedby="emailHelp" id="email">
-			<small id="emailHelp" class="form-text text-muted">We'll never share your email with anyone else.</small>
 		</div>
 		<div class="form-group">
 			<label for="pass">Пароль:</label>

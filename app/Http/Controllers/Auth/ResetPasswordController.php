@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Auth;
 
 use App\Http\Controllers\Controller;
+use App\Http\Requests\ResetPasswordRequest;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Carbon;
@@ -27,13 +28,8 @@ class ResetPasswordController extends Controller
 	/**
 	 * Установка нового пароля
 	 */
-	public function reset(Request $request)
+	public function reset(ResetPasswordRequest $request)
 	{
-		$request->validate([
-			'email' => 'required|email|exists:users',
-			'password' => 'required|string|min:8|confirmed',
-		]);
-
 		$expire = Carbon::now()->subMinute(60);
 		DB::table('password_resets')
 			->where('created_at', '<', $expire)
