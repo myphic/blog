@@ -20,6 +20,11 @@
 						<div class="mb-1 text-body-secondary">{{$post->created_at}}</div>
 						<p class="card-text mb-auto">{{Str::limit($post->body, 50, '[...]')}}</p>
 						<a href="{{route('posts.show', ['post' => $post->id])}}" class="stretched-link">Продолжить чтение</a>
+						<div>
+							@foreach($post->tags as $tag)
+								<span class="badge text-bg-info">{{$tag->name}}</span>
+							@endforeach
+						</div>
 					</div>
 					<div class="col-auto d-none d-lg-block">
 						@if (File::exists('storage/thumb/' . $post->image) && $post->image)

@@ -16,6 +16,12 @@
 					@method('DELETE')
 					<input type="submit" class="btn btn-danger" value="Удалить">
 				</form>
+				<div>
+					Теги:
+					@foreach($post->tags as $tag)
+						<span class="badge text-bg-info">{{$tag->name}}</span>
+					@endforeach
+				</div>
 			</div>
 		</div>
 		<div class="col-auto d-none d-lg-block">

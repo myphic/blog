@@ -5,8 +5,6 @@ namespace App\Http\Controllers;
 use App\Facade\ResizeImage;
 use App\Http\Requests\SearchRequest;
 use App\Models\Post;
-use App\Services\ImageService;
-use Illuminate\Contracts\Database\Eloquent\Builder;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
 
