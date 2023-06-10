@@ -24,13 +24,6 @@
 					<div class="col-auto d-none d-lg-block">
 						@if (File::exists('storage/thumb/' . $post->image) && $post->image)
 							<img src="{{asset('storage/thumb/' . $post->image)}}"/>
-						@else
-							<svg class="bd-placeholder-img" width="200" height="250"
-								 xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Placeholder: Эскиз"
-								 preserveAspectRatio="xMidYMid slice" focusable="false"><title>Placeholder</title>
-								<rect width="100%" height="100%" fill="#55595c"></rect>
-								<text x="50%" y="50%" fill="#eceeef" dy=".3em">Эскиз</text>
-							</svg>
 						@endif
 					</div>
 				</div>

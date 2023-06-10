@@ -17,7 +17,8 @@ class Post extends Model
 		return $this->belongsTo(User::class);
 	}
 
-	public function tags() {
+	public function tags()
+	{
 		return $this->belongsToMany(Tag::class)->withTimestamps();
 	}
 
@@ -27,7 +28,8 @@ class Post extends Model
 	 */
 	public function getByQuery(string $search): mixed
 	{
-		return Post::whereHas('user', function (Builder $query) use ($search){
+		return Post::whereHas('user', function (Builder $query) use ($search)
+		{
 			$query->where('name', 'LIKE', "%{$search}%");
 		})->orWhere('title', 'LIKE', "%{$search}%")->orWhere('body', 'LIKE', "%{$search}%")->paginate(4);
 	}
