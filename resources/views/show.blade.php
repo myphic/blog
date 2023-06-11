@@ -37,16 +37,18 @@
 			@endif
 		</div>
 	</div>
-	<div>
-		<div>Комментарии:</div>
-		@foreach($post->comments as $comment)
-			<div class="card mb-3">
-				<div class="card-body">
-					<h5 class="card-title">{{$comment->user->name}}</h5>
-					<p class="card-text">{{$comment->content}}</p>
-					<p class="card-text">Отправлен: {{$comment->created_at}}</p>
+	@if($post->comments->count() > 0)
+		<div>
+			<div>Комментарии:</div>
+			@foreach($post->comments as $comment)
+				<div class="card mb-3">
+					<div class="card-body">
+						<h5 class="card-title">{{$comment->user->name}}</h5>
+						<p class="card-text">{{$comment->content}}</p>
+						<p class="card-text">Отправлен: {{$comment->created_at}}</p>
+					</div>
 				</div>
-			</div>
-		@endforeach
-	</div>
+			@endforeach
+		</div>
+	@endif
 @endsection

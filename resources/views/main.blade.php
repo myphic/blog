@@ -25,6 +25,7 @@
 								<span class="badge text-bg-info">{{$tag->name}}</span>
 							@endforeach
 						</div>
+						<div>Комментариев: <span class="text-primary">{{$post->comments->count()}}</span></div>
 					</div>
 					<div class="col-auto d-none d-lg-block">
 						@if (File::exists('storage/thumb/' . $post->image) && $post->image)
