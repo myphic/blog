@@ -20,11 +20,8 @@ class RegisterController extends Controller
 
 	public function create(RegisterRequest $request) {
 
-		User::create([
-			'name' => $request->name,
-			'email' => $request->email,
-			'password' => Hash::make($request->password),
-		]);
+		$user = new User();
+		$user->register($request);
 
 		return redirect()
 			->route('auth.login')
