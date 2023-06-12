@@ -51,6 +51,6 @@ Route::group([
 Route::resources(['posts' => PostController::class]);
 Route::get('/search', [PostController::class, 'search'])->name('search');
 Route::middleware(['role:admin'])->prefix('admin')->group(function () {
-	Route::get('/', [HomeController::class, 'index']);
+	Route::get('/', [HomeController::class, 'index'])->name('admin-index');
 });
 
