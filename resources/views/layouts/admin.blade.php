@@ -11,7 +11,7 @@
 
 	<!-- Preloader -->
 	<div class="preloader flex-column justify-content-center align-items-center">
-		<img class="animation__shake" src="admin/dist//img/AdminLTELogo.png" alt="AdminLTELogo" height="60" width="60">
+		<img class="animation__shake" src="admin/images/AdminLTELogo.png" alt="AdminLTELogo" height="60" width="60">
 	</div>
 
 	<!-- Navbar -->
@@ -38,7 +38,7 @@
 	<aside class="main-sidebar sidebar-dark-primary elevation-4">
 		<!-- Brand Logo -->
 		<a href="{{route('admin-index')}}" class="brand-link">
-			<img src="admin/dist//img/AdminLTELogo.png" alt="AdminLTE Logo" class="brand-image img-circle elevation-3" style="opacity: .8">
+			<img src="admin/images/AdminLTELogo.png" alt="AdminLTE Logo" class="brand-image img-circle elevation-3" style="opacity: .8">
 			<span class="brand-text font-weight-light">Админ-панель</span>
 		</a>
 
@@ -47,7 +47,7 @@
 			<!-- Sidebar user panel (optional) -->
 			<div class="user-panel mt-3 pb-3 mb-3 d-flex">
 				<div class="image">
-					<img src="admin/dist//img/user2-160x160.jpg" class="img-circle elevation-2" alt="User Image">
+					<img src="admin/images/user6-128x128.jpg" class="img-circle elevation-2" alt="User Image">
 				</div>
 				<div class="info">
 					<a href="#" class="d-block">{{Auth::user()->name}}</a>
