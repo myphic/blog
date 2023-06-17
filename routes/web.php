@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\Admin\CategoryController;
 use App\Http\Controllers\Admin\HomeController;
 use App\Http\Controllers\Auth\ForgotPasswordController;
 use App\Http\Controllers\Auth\LoginController;
@@ -52,5 +53,7 @@ Route::resources(['posts' => PostController::class]);
 Route::get('/search', [PostController::class, 'search'])->name('search');
 Route::middleware(['role:admin'])->prefix('admin')->group(function () {
 	Route::get('/', [HomeController::class, 'index'])->name('admin-index');
+
+	Route::resource('category', CategoryController::class);
 });
 
