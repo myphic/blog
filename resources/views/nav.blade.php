@@ -7,20 +7,25 @@
 
 		<div class="collapse navbar-collapse justify-content-between" id="navbarSupportedContent">
 			<ul class="navbar-nav mr-auto">
-				<li class="nav-item active">
-					<a class="nav-link" href="{{route('posts.index')}}">Посты</a>
+				<li class="nav-item">
+					<a class="nav-link {{ Route::is('posts*') ? 'link-danger' : null }}" href="{{route('posts.index')}}">Посты</a>
 				</li>
 				@guest
 					<li class="nav-item">
-						<a class="nav-link" href="{{ route('auth.login') }}">Войти</a>
+						<a class="nav-link {{ Route::is('auth.login') ? 'link-danger' : null }}" href="{{ route('auth.login') }}">Войти</a>
 					</li>
 					<li class="nav-item">
-						<a class="nav-link" href="{{ route('auth.register') }}">Регистрация</a>
+						<a class="nav-link {{ Route::is('auth.register') ? 'link-danger' : null }}" href="{{ route('auth.register') }}">Регистрация</a>
 					</li>
 				@else
 					<li class="nav-item">
-						<a class="nav-link" href="{{ route('user.index') }}">Личный кабинет - {{Auth::user()->name}}</a>
+						<a class="nav-link {{ Route::is('user*') ? 'link-danger' : null }}" href="{{ route('user.index') }}">Личный кабинет - {{Auth::user()->name}}</a>
 					</li>
+					@if(Auth::user()->hasRole('admin'))
+						<li class="nav-item">
+							<a class="nav-link" href="{{ route('admin-index') }}">Админ-панель</a>
+						</li>
+					@endif
 					<li class="nav-item">
 						<a class="nav-link" href="{{ route('auth.logout') }}">Выйти</a>
 					</li>
