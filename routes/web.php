@@ -9,6 +9,8 @@ use App\Http\Controllers\PostController;
 use App\Http\Controllers\Auth\RegisterController;
 use Illuminate\Support\Facades\Route;
 
+Route::get('/', [PostController::class, 'main']);
+
 Route::group([
 	'as' => 'auth.',
 	'prefix' => 'auth',

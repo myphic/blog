@@ -45,7 +45,7 @@ class PostController extends Controller
 		$post->title = $request->title;
 		$post->body = $request->body;
 		$image = $request->file('image');
-		if($image)
+		if ($image)
 		{
 			Storage::putFileAs('public/images', $image, $image->hashName());
 			$post->image = $image->hashName();
@@ -93,7 +93,8 @@ class PostController extends Controller
 		$post->title = $request->title;
 		$post->body = $request->body;
 		$image = $request->file('image');
-		if ($image) {
+		if ($image)
+		{
 			$originalFileName = $request->file('image')->getClientOriginalName();
 			Storage::putFileAs(public_path('images'), $image, $originalFileName);
 			$post->image = $originalFileName;
@@ -119,8 +120,14 @@ class PostController extends Controller
 			->with('success', 'Пост успешно удален');
 	}
 
-	public function search(SearchRequest $request) {
+	public function search(SearchRequest $request)
+	{
 		return view('search', ['posts' => (new Post())->getByQuery($request->search)]);
 	}
 
+
+	public function main()
+	{
+		return view('index');
+	}
 }
