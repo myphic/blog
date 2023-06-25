@@ -2,7 +2,6 @@
 
 namespace App\Http\Controllers;
 
-use App\Facade\ResizeImage;
 use App\Http\Requests\SearchRequest;
 use App\Models\Post;
 use Illuminate\Http\Request;
@@ -18,7 +17,6 @@ class PostController extends Controller
 	public function index()
 	{
 		$posts = Post::paginate();
-
 		return view('main', compact('posts'));
 	}
 
@@ -41,17 +39,7 @@ class PostController extends Controller
 	public function store(Request $request)
 	{
 		$post = new Post();
-		$post->user_id = rand(1, 15);
-		$post->title = $request->title;
-		$post->body = $request->body;
-		$image = $request->file('image');
-		if ($image)
-		{
-			Storage::putFileAs('public/images', $image, $image->hashName());
-			$post->image = $image->hashName();
-		}
-		$post->thumb = ResizeImage::crop($image);
-		$post->save();
+		$post->createNewPost($request);
 		return redirect()->route('posts.index')->with('success', 'Пост успешно создан.');
 	}
 
