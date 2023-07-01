@@ -80,11 +80,6 @@
 									<p>Все статьи</p>
 								</a>
 							</li>
-							<li class="nav-item">
-								<a href="./index.html" class="nav-link">
-									<p>Добавить статью</p>
-								</a>
-							</li>
 						</ul>
 					</li>
 
