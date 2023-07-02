@@ -1,6 +1,7 @@
 @extends('layouts.admin')
 
 @section('content')
+	<? Illuminate\Support\Facades\Redis::connection()->ping(); ?>
 	<div class="row">
 		<div class="col-12">
 			<div class="card">

@@ -7,7 +7,7 @@
 	<meta http-equiv="X-UA-Compatible" content="ie=edge">
 	<link rel="shortcat icon" type="image/png" href="{{ asset('images/favicon.png') }}"/>
 	<title>{{$title ?? 'Blog'}}</title>
-	@vite(['resources/js/app.js', 'resources/css/app.scss'])
+	@vite(['resources/js/app.js', 'resources/sass/app.scss'])
 </head>
 <body>
 <main class="container">

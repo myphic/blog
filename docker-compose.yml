@@ -51,5 +51,10 @@ services:
     user: 1000:1000
     container_name: project_app
 
+  redis:
+    image: redis:5-alpine
+    ports:
+      - 6379:6379
+
 volumes:
     dbdata:
