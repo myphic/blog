@@ -4,7 +4,10 @@ namespace App\Http\Controllers;
 
 use App\Http\Requests\SearchRequest;
 use App\Models\Post;
+use Barryvdh\Debugbar\Facades\Debugbar;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Cache;
+use Illuminate\Support\Facades\Redis;
 use Illuminate\Support\Facades\Storage;
 
 class PostController extends Controller
@@ -16,10 +19,9 @@ class PostController extends Controller
 	 */
 	public function index()
 	{
-		$posts = Post::paginate();
+		$posts = (new Post())->getPosts();
 		return view('main', compact('posts'));
 	}
-
 	/**
 	 * Show the form for creating a new resource.
 	 *

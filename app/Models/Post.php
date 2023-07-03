@@ -8,6 +8,7 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Redis;
 use Illuminate\Support\Facades\Storage;
 
 class Post extends Model
@@ -62,5 +63,18 @@ class Post extends Model
 		}
 		$post->thumb = ResizeImage::crop($image);
 		$post->save();
+	}
+
+	public function getPosts()
+	{
+		$page = request()->get('page');
+
+		if ($posts = Redis::get('posts_' . $page)) {
+			return unserialize($posts);
+		}
+
+		$posts = Post::paginate();
+		Redis::set('posts_' . $page, serialize($posts));
+		return $posts;
 	}
 }
