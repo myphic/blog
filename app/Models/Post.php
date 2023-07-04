@@ -3,12 +3,13 @@
 namespace App\Models;
 
 use App\Facade\ResizeImage;
+use Carbon\Carbon;
 use Illuminate\Contracts\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
-use Illuminate\Support\Facades\Redis;
+use Illuminate\Support\Facades\Cache;
 use Illuminate\Support\Facades\Storage;
 
 class Post extends Model
@@ -67,14 +68,11 @@ class Post extends Model
 
 	public function getPosts()
 	{
-		$page = request()->get('page');
+		$page = request()->get('page') ?? 1;
+		$posts = Cache::remember('posts_' . $page, Carbon::now()->addDays(7), function () {
+			return Post::paginate();
+		});
 
-		if ($posts = Redis::get('posts_' . $page)) {
-			return unserialize($posts);
-		}
-
-		$posts = Post::paginate();
-		Redis::set('posts_' . $page, serialize($posts));
 		return $posts;
 	}
 }
